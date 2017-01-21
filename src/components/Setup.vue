@@ -1,7 +1,40 @@
 <template>
-  <div class="login">
-    <h1>Set up {{surveyName}} with code {{surveyCode}}</h1>
+<div class="page-layout-body-inner">
+  <div class="event-header container l-px2 relative">
+    <div class="event-header__left hidden-sm-down">
+      <div class="event-header__event truncate">{{surveyName}}</div>
+    </div>
+    <div class="event-header__center">
+      <span>Join mini program with code {{surveyCode}}</span>
+    </div>
   </div>
+  <div class="main-panel-body bg-white shadow-b1 flex-column flex">
+    <div></div>
+    <div class="pointer no-shrink create-component create-component--bottom-border create-component--perma-bg"> 
+      <label for="placeholderLabel"> </label> 
+      <div class="create-component__placeholder stretch-x" v-on:click="draftQuestion">Create a question</div> 
+    </div>
+  </div>
+  <div v-show="editing" class="modal">
+  <div class="flex flex-column modal-dialog modal-dialog-stretch-ie10">
+    <div class="flex-none modal-header">
+      Create Question
+    </div>
+    <div class="flex-auto modal-body scroll-y scrollbar-default relative">
+      <form action="">
+        
+      </form>
+    </div>
+    <div class="flex-none modal-footer bg-white py07 ng-scope">
+      <div class="right"> 
+        <button type="button" class="btn btn-clear mx1"> Cancel </button> 
+        <button type="submit" class="btn btn-primary"> Save </button> 
+      </div>
+    </div>
+  </div>
+    <div class="modal-backdrop"></div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -9,13 +42,21 @@ export default {
   name: 'setup',
   data () {
     return {
-      surveyName: 'test',
-      surveyCode: 'democode'
+      editing: false
     };
   },
+  computed: {
+    surveyCode: function () {
+      return this.$route.params.id;
+    },
+    surveyName: function () {
+      return this.$route.params.surveyName;
+    }
+  },
   methods: {
-    loginDashboard: () => {
-      console.log('go to dashboard');
+    draftQuestion: function () {
+      console.log('qustion');
+      this.editing = true;
     }
   }
 };
@@ -23,55 +64,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.form-control {
-    display: block;
-    width: 100%;
-    padding: .45rem .5rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: .07143rem solid #ccc;
-    border-radius: .25rem;
-  }
-
-  .event-date, .event-name {
-    max-width: 280px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.l-mb3 {
-    margin-bottom: 30px;
-}
-.l-mb1 {
-    margin-bottom: 10px;
-}
-.btn{
-  padding: .375rem 1rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    transition: background .2s ease-out;
-    display: inline-block;
-    font-weight: 500;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    user-select: none;
-    border: .07143rem solid transparent;
-    border-radius: .25rem;
-        min-width: 7.5rem;
-}
-.btn-success {
-    color: #fff;
-    background-color: #70be4e;
-    border-color: #70be4e;
-}
-.btn.disabled, .disabled.modal-header-close, .modal-header-actions button.disabled, .btn:disabled, .modal-header-close:disabled, .modal-header-actions button:disabled {
-    cursor: not-allowed;
-    opacity: .65;
-     pointer-events: none;
-    box-shadow: none;
-}
 
 </style>
