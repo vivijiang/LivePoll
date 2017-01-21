@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="login">
     <h1>{{ msg }}</h1>
     <div>
       <h1>Admin</h1>
@@ -22,18 +22,20 @@
 
 <script>
 export default {
-  name: 'hello',
+  name: 'login',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
-    }
+    };
   },
   methods: {
-    loginDashboard: () => {
-      console.log('go to dashboard')
+    loginDashboard: function () {
+      console.log(this.$route.path);
+      this.$router.push({ path: 'create' });
+      // this.$route.push({ path: 'create-survey' });
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

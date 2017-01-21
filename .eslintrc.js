@@ -12,6 +12,9 @@ module.exports = {
   ],
   // add your custom rules here
   'rules': {
+    "no-extra-semi": 2, // disallow unnecessary semicolons
+    "semi": [1, "always"], // require or disallow use of semicolons instead of ASI
+    "semi-spacing": [1, {"before": false, "after": true}], // enforce spacing before and after semicolons
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow async-await
