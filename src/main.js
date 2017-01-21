@@ -5,11 +5,13 @@ import VueRouter from 'vue-router'
 import App from './App'
 import Login from './components/Login'
 import Create from './components/Create'
+import Setup from './components/Setup'
 Vue.use(VueRouter)
 
 const routes = [
   { path: '/', component: Login },
-  { path: '/create', component: Create }
+  { path: '/create', component: Create },
+  { path: '/setup/:id', component: Setup }
 ]
 const router = new VueRouter({
   routes: routes

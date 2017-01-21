@@ -1,38 +1,21 @@
 <template>
   <div class="login">
-    <h1>create new live survey</h1>
-    
-    <div class="event-name l-mb3">
-    <h2>What's the name of your survey?</h2>
-      <input class="form-control" v-model="surveyName" placeholder="Survey Name">
-    </div>
-<!--     <div class="event-name l-mb3">
-        <h2>When does the survey start?</h2>
-      <input class="form-control" v-model="startDate" placeholder="Start Date">
-    </div> -->
-<!--     <div class="event-name l-mb3">
-        <h2>Participants can join with WeChat mini program with the event code:</h2>
-        <h3>Search 'XXX' or scan the QR code by WeChat</h3>
-      <input class="form-control" v-model="surveyCode" placeholder="Survey Code">
-    </div>  -->   
-    <div class="l-mb1">
-      <button class="btn btn-success" v-bind:disabled="!surveyName" v-on:click="goSetup"> Next </button>
-    </div>
+    <h1>Set up {{surveyName}} with code {{surveyCode}}</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'create',
+  name: 'setup',
   data () {
     return {
-      surveyName: ''
+      surveyName: 'test',
+      surveyCode: 'democode'
     };
   },
   methods: {
-    goSetup: function () {
-      console.log('go to setup');
-      this.$router.push({ path: 'setup/democode' });
+    loginDashboard: () => {
+      console.log('go to dashboard');
     }
   }
 };
