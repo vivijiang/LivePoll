@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     goSetup: function () {
-      console.log('go to setup');
+      
       this.$router.push({ path: 'setup/democode' });
     }
   }
