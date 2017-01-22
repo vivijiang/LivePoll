@@ -24,7 +24,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .bar{
-  background-color: #03A9F4;
+  background-color: #4285f4;
   height: 18px;
   border-radius: 9px;
   position: relative;
