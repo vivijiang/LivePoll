@@ -10,6 +10,9 @@ export default {
 }
 </script>
 <style>
+*{
+  box-sizing: border-box;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -214,7 +217,7 @@ body{
 .truncate, .btn, .modal-header-close, .modal-header-actions button {
     max-width: 100%;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis;modal
     white-space: nowrap;
 }
 
@@ -294,7 +297,7 @@ body{
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
     max-width: 620px;
-    max-height: 90%;
+    max-height: 80%;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -302,6 +305,7 @@ body{
 .modal-dialog, .modal-header {
     background: #fff;
     position: relative;
+    text-align: left;
 }
 .modal-dialog {
     border-radius: .3rem;
@@ -355,6 +359,13 @@ body{
 .mx1 {
     margin-left: .4rem;
     margin-right: .4rem;
+}
+.mt2 {
+    margin-top: 1rem;
+}
+.px3 {
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 .btn-primary {
     color: #fff;
