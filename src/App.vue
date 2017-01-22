@@ -1,6 +1,5 @@
 <template>
-  <div id="app" class="bg-gray-l2">
-    <h1>LiveSurvey</h1>
+  <div id="app">
     <router-view></router-view>
   </div>
 </template>
@@ -12,6 +11,9 @@ export default {
 <style>
 *{
   box-sizing: border-box;
+}
+h2 {
+  font-weight: normal;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -84,7 +86,7 @@ body{
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
-.bg-gray-l2 {
+body, .bg-gray-l2 {
     background-color: #eee;
 }
 .container, .page-layout-body-inner {

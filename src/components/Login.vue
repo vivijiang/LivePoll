@@ -1,21 +1,31 @@
 <template>
-  <div class="login">
-    <h1>{{ msg }}</h1>
-    <div>
-      <h1>Admin</h1>
-      <label for="adminname">User Name</label>
-      <input type="text">
-      <label for="adminpassword">Password</label>
-      <input type="password">
-      <button>Login</button>
-    </div>
-    <div>
-      <h1>Dashboard</h1>
-      <label for="surveycode">Survey Code</label>
-      <input type="password">
-      <label for="accesscode">Access Code</label>
-      <input type="text">
-      <button v-on:click="loginDashboard()">View Dashboard</button>
+  <div>
+    <h1>LiveSurvey</h1>
+    <div class="login flex">
+      <div class="flex-auto bg-white">
+        <h2>Admin</h2>
+        <div class="event-name l-mb3">
+          <label for="adminname">User Name</label>
+          <input class="form-control" type="text" v-model="userName" placeholder="User Name">
+        </div>
+        <div class="event-name l-mb3">
+          <label for="adminpassword">Password</label>
+          <input class="form-control" type="password" v-model="adminPassword" placeholder="Password">
+        </div>
+        <button class="btn btn-success" v-bind:disabled="!userName || !adminPassword" v-on:click="loginAdmin">Login</button>
+      </div>
+      <div class="flex-auto bg-white">
+        <h2>Dashboard</h2>
+        <div class="event-name l-mb3">
+          <label for="surveycode">Survey Code</label>
+          <input class="form-control" v-model="surveyCode" placeholder="Survey Code">
+        </div>
+        <div class="event-name l-mb3">
+          <label for="surveycode">Access Code</label>
+          <input class="form-control" v-model="accessCode" placeholder="Access Code">
+        </div>
+        <button class="btn btn-success" v-bind:disabled="!surveyCode || !accessCode" v-on:click="loginDashboard()">View Dashboard</button>
+      </div>
     </div>
   </div>
 </template>
@@ -25,13 +35,26 @@ export default {
   name: 'login',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      surveyCode: '',
+      accessCode: '',
+      userName: '',
+      adminPassword: ''
     };
   },
   methods: {
-    loginDashboard: function () {
-      console.log(this.$route.path);
+    loginAdmin: function () {
       this.$router.push({ path: 'create' });
+    },
+    loginDashboard: function () {
+      const self = this;
+      console.log('survey code input: ');
+      console.log(self.surveyCode);
+      self.$router.push({
+        name: 'dashboard',
+        params: {
+          id: self.surveyCode
+        }});
       // this.$route.push({ path: 'create-survey' });
     }
   }
@@ -40,9 +63,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
+
 
 ul {
   list-style-type: none;
@@ -56,5 +77,16 @@ li {
 
 a {
   color: #42b983;
+}
+
+.login{
+  width: 800px;
+  margin: 50px auto;
+}
+
+.login .flex-auto{
+      border: .07143rem solid #ccc;
+    border-radius: .25rem;
+    padding: 20px;
 }
 </style>
