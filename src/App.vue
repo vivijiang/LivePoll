@@ -21,7 +21,7 @@ h2 {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  max-width: 1600px;
+  max-width: 1800px;
   margin: 60px auto 0;
 }
 .form-control {
@@ -129,31 +129,7 @@ body, .bg-gray-l2 {
 .text-light{
   color: #a2a2a2;
 }
-@media (min-width: 544px)
-{
-  .container, .page-layout-body-inner {
-    max-width: 576px;
-  }
-}
-@media (min-width: 768px)
-{
-  .container, .page-layout-body-inner {
-    max-width: 720px;
-  }
-}
 
-@media (min-width: 992px)
-{
-  .container, .page-layout-body-inner {
-    max-width: 940px;
-  }
-}
-@media (min-width: 1200px)
-{
-  .container, .page-layout-body-inner {
-    max-width: 1140px;
-  }
-}
 .container, .page-layout-body-inner {
     max-width: 1140px;
 }
@@ -378,5 +354,34 @@ body, .bg-gray-l2 {
 .py07 {
     padding-top: .7rem;
     padding-bottom: .7rem;
+}
+
+@media (min-width: 544px)
+{
+  .container, .page-layout-body-inner {
+    max-width: 576px;
+  }
+}
+@media (min-width: 768px)
+{
+  .container, .page-layout-body-inner {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px)
+{
+  .container, .page-layout-body-inner {
+    max-width: 940px;
+  }
+}
+@media (min-width: 1200px)
+{
+    body{
+        font-size: 20px;
+    }
+  .container, .page-layout-body-inner {
+    max-width: 1140px;
+  }
 }
 </style>

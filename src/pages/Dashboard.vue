@@ -7,12 +7,14 @@
         <p>Survey Code: <strong>{{surveyCode}}</strong> </p>
 
       </div>
-      <div class="dashboard-right">
+      <div class="dashboard-right flex-auto">
         <div v-for="(q, index) in questions">
-          <div v-show="index === activeQuestionIndex">
-            <div class="question-content">{{lang[q.code]}}</div>
+          <div v-show="index === activeQuestionIndex" class="question">
+            <div class="prev questionNav" v-on:click="prev">Prev</div>
+            <div class="next questionNav" v-on:click="next">Next</div>
+            <h4 class="question-content">{{index + 1}}. {{lang[q.code]}}</h4>
             <div class="text-small">{{activeQuestionUsers}} votes</div>
-            <div class="options" v-for="(opt, idx) in q.options">
+            <div class="option" v-for="(opt, idx) in q.options">
               <div>{{lang[opt]}}</div>
               <progress-bar :percent="activeQuestionUsers && activeQuestionAns['o_' + idx] ? activeQuestionAns['o_' + idx].length/activeQuestionUsers : 0"></progress-bar>
             </div>
@@ -98,31 +100,30 @@ export default {
     const ansRef = util.getGivenEventRef(self.surveyCode).child('answers');
     ansRef.on('value', (snapshot) => {
       self.answers = snapshot.val();
-      self.answers = Object.assign({}, snapshot.val())
+      self.answers = Object.assign({}, snapshot.val());
       // self.$set(this.answers, 'b', 2)
       console.log('self.answers:');
       console.log(self.answers);
     });
   },
   methods: {
-    goSetup: function () {
+    next: function () {
       const self = this;
-      util.setNewEventCode(function (newSurveyCode) {
-        util.getGivenEventRef(newSurveyCode).set({
-          'meta': {
-            'createdAt': new Date().toUTCString(),
-            'surveyName': self.surveyName,
-            'description': self.description
-          }
-        }).then(function () {
-          self.$router.push({
-            name: 'setup',
-            params: {
-              id: newSurveyCode,
-              surveyName: self.surveyName
-            }});
-        });
-      });
+      if (self.activeQuestionIndex === self.questions.length - 1) {
+        return;
+      }
+      self.activeQuestionIndex++;
+      const dashboardRef = util.getGivenEventRef(self.surveyCode).child('dashboard');
+      dashboardRef.update({'activeQuestionIndex': self.activeQuestionIndex});
+    },
+    prev: function () {
+      const self = this;
+      if (!self.activeQuestionIndex) {
+        return;
+      }
+      self.activeQuestionIndex--;
+      const dashboardRef = util.getGivenEventRef(self.surveyCode).child('dashboard');
+      dashboardRef.update({'activeQuestionIndex': self.activeQuestionIndex});
     }
   }
 };
@@ -130,16 +131,51 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+h4{
+  margin-top: 0;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  min-height: 4em;
+}
 .qr{
   background: #ccc;
-  width: 15rem;
-  height: 15rem;
+  width: 20rem;
+  height: 20rem;
+  margin: 0 auto;
 }
 .dashboard-left{
   padding: 20px;
 }
 .dashboard-right{
-  padding: 20px 50px;
+  padding: 2rem 6rem;
   text-align: left;
+}
+.option {
+  margin-top: 2rem;
+}
+.question{
+  position: relative;
+}
+.questionNav{
+  position: absolute;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: #ccc;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 4rem;
+  text-align: center;
+  top: 0;
+  cursor: pointer;
+}
+.questionNav:hover{
+  background-color: #aaa;
+}
+.prev{
+  left: -6rem;
+}
+.next{
+  right: -6rem;
 }
 </style>
