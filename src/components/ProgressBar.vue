@@ -5,22 +5,20 @@
     </div>
   </div>
 </template>
-
 <script>
-
 export default {
   name: 'progressBar',
   props: ['percent'],
   data () {
     return {
-    }
+    };
   },
   computed: {
-    widthVal: function() {
+    widthVal: function () {
       return (this.percent * 100).toFixed(0);
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

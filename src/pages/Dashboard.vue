@@ -13,6 +13,7 @@
             <div class="question-content">{{lang[q.code]}}</div>
             <div class="options" v-for="(opt, idx) in q.options">
               <div>{{lang[opt]}}</div>
+              <progress-bar :percent="0"></progress-bar>
             </div>
           </div>
         </div>
@@ -33,8 +34,12 @@
 import translation from '../language/index';
 import questions from '../data/questions';
 import util from '../utility/eventCode';
+import ProgressBar from '../components/ProgressBar'
 export default {
   name: 'dashboard',
+  components: {
+    ProgressBar
+  },
   data () {
     return {
       // surveyName: '',
