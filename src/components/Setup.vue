@@ -9,7 +9,11 @@
     </div>
   </div>
   <div class="main-panel-body bg-white shadow-b1 flex-column flex">
-    <div></div>
+    <div>
+      <ul v-for="(q, index) in questions">
+        <li>{{q.content}}</li>
+      </ul>
+    </div>
     <div class="pointer no-shrink create-component create-component--bottom-border create-component--perma-bg"> 
       <label for="placeholderLabel"> </label> 
       <div class="create-component__placeholder stretch-x" v-on:click="draftQuestion">Create a question</div> 
@@ -51,10 +55,12 @@
 </template>
 
 <script>
+import util from '../utility/eventCode';
 export default {
   name: 'setup',
   data () {
     return {
+      questions: [],
       editing: false,
       newQuestionText: '',
       newOptions: [],
@@ -68,6 +74,9 @@ export default {
     },
     surveyName: function () {
       return this.$route.params.surveyName;
+    },
+    questionCount: function () {
+      return this.questions.length;
     }
   },
   methods: {
@@ -84,6 +93,20 @@ export default {
     },
     saveQuestion: function () {
       console.log('save q');
+      const self = this;
+      const surveyRef = util.getGivenEventRef(self.surveyCode);
+      surveyRef.child('questions/' + self.questionCount).set({
+        content: self.newQuestionText,
+        multiple: false,
+        options: self.newOptions
+      })
+      .then(function () {
+        self.editing = false;
+        self.newQuestionText = '';
+        self.newOptions = [];
+        self.newOptionText = '';
+        self.newOptionVal = 1;
+      });
     },
     addOption: function () {
       const content = this.newOptionText && this.newOptionText.trim();

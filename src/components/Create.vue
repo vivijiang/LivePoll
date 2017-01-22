@@ -6,17 +6,17 @@
     <h2>What's the name of your survey?</h2>
       <input class="form-control" v-model="surveyName" placeholder="Survey Name">
     </div>
-<!--     <div class="event-name l-mb3">
-        <h2>When does the survey start?</h2>
-      <input class="form-control" v-model="startDate" placeholder="Start Date">
-    </div> -->
+    <div class="event-name l-mb3">
+        <h2>What's the survey about?</h2>
+      <input class="form-control" v-model="description" placeholder="Description">
+    </div>
 <!--     <div class="event-name l-mb3">
         <h2>Participants can join with WeChat mini program with the event code:</h2>
         <h3>Search 'XXX' or scan the QR code by WeChat</h3>
       <input class="form-control" v-model="surveyCode" placeholder="Survey Code">
     </div>  -->   
     <div class="l-mb1">
-      <button class="btn btn-success" v-bind:disabled="!surveyName" v-on:click="goSetup"> Next </button>
+      <button class="btn btn-success" v-bind:disabled="!surveyName || !description" v-on:click="goSetup"> Next </button>
     </div>
   </div>
 </template>
@@ -27,19 +27,28 @@ export default {
   name: 'create',
   data () {
     return {
-      surveyName: ''
+      surveyName: '',
+      description: ''
     };
   },
   methods: {
     goSetup: function () {
       const self = this;
       util.setNewEventCode(function (newSurveyCode) {
-        self.$router.push({
-          name: 'setup',
-          params: {
-            id: newSurveyCode,
-            surveyName: self.surveyName
-          }});
+        util.getGivenEventRef(newSurveyCode).set({
+          'meta': {
+            'createdAt': new Date().toUTCString(),
+            'surveyName': self.surveyName,
+            'description': self.description
+          }
+        }).then(function () {
+          self.$router.push({
+            name: 'setup',
+            params: {
+              id: newSurveyCode,
+              surveyName: self.surveyName
+            }});
+        });
       });
     }
   }

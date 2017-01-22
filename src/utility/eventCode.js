@@ -52,4 +52,5 @@ const getGivenEventRef = (eventCode) => {
 module.exports = {
   setNewEventCode: setNewEventCode,
   getGivenEventRef: getGivenEventRef
+  // rootRef: rootRef
 };
