@@ -47,9 +47,8 @@ export default {
       this.$router.push({ path: 'create' });
     },
     loginDashboard: function () {
+      // todo: verfiy the surveycode
       const self = this;
-      console.log('survey code input: ');
-      console.log(self.surveyCode);
       self.$router.push({
         name: 'dashboard',
         params: {

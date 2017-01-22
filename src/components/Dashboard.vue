@@ -1,27 +1,51 @@
 <template>
   <div class="login">
-    <h1>Dashboard</h1>
+    <div class="flex">
+      <div class="dashboard-col">
+        <div class="qr">mini program QR here</div>
+        <p>Scan the QR code by WeChat</p>
+        <p>Survey Code: <strong>{{surveyCode}}</strong> </p>
 
+      </div>
+      <div class="dashboard-col">
+        <div v-for="q in questions">
+          <view class="question-content">{{lang[q.code]}}</view>
+        </div>
+        <!-- <div class="l-mb1">
+          <button class="btn btn-success" v-bind:disabled="!surveyName || !description" v-on:click="goSetup"> Next </button>
+        </div> -->
+      </div>
+    </div>
 <!--     <div class="event-name l-mb3">
         <h2>Participants can join with WeChat mini program with the event code:</h2>
         <h3>Search 'XXX' or scan the QR code by WeChat</h3>
       <input class="form-control" v-model="surveyCode" placeholder="Survey Code">
     </div>  -->   
-    <div class="l-mb1">
-      <button class="btn btn-success" v-bind:disabled="!surveyName || !description" v-on:click="goSetup"> Next </button>
-    </div>
   </div>
 </template>
 
 <script>
+import translation from '../language/index';
+import questions from '../data/questions';
 import util from '../utility/eventCode';
 export default {
   name: 'dashboard',
   data () {
     return {
-      surveyName: '',
-      description: ''
+      // surveyName: '',
+      // description: '',
+      questions: questions,
+      answers: {},
+      lang: translation.en,
+      activeQuestionIndex: 0
     };
+  },
+  computed: {
+    surveyCode: function () {
+      console.log('dashboard:')
+      console.log(this.$route.params.id);
+      return this.$route.params.id;
+    }
   },
   methods: {
     goSetup: function () {
@@ -49,4 +73,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.qr{
+  background: #ccc;
+  width: 15rem;
+  height: 15rem;
+}
+.dashboard-col{
+  padding: 20px;
+}
 </style>
