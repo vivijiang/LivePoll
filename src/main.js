@@ -3,10 +3,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App';
-import Login from './components/Login';
-import Create from './components/Create';
-import Setup from './components/Setup';
-import Dashboard from './components/Dashboard';
+import Login from './pages/Login';
+import Create from './pages/Create';
+import Setup from './pages/Setup';
+import Dashboard from './pages/Dashboard';
 Vue.use(VueRouter);
 
 const routes = [

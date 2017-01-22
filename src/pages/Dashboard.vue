@@ -1,15 +1,20 @@
 <template>
   <div class="login">
     <div class="flex">
-      <div class="dashboard-col">
+      <div class="dashboard-left">
         <div class="qr">mini program QR here</div>
         <p>Scan the QR code by WeChat</p>
         <p>Survey Code: <strong>{{surveyCode}}</strong> </p>
 
       </div>
-      <div class="dashboard-col">
-        <div v-for="q in questions">
-          <view class="question-content">{{lang[q.code]}}</view>
+      <div class="dashboard-right">
+        <div v-for="(q, index) in questions">
+          <div v-show="index === activeQuestionIndex">
+            <div class="question-content">{{lang[q.code]}}</div>
+            <div class="options" v-for="(opt, idx) in q.options">
+              <div>{{lang[opt]}}</div>
+            </div>
+          </div>
         </div>
         <!-- <div class="l-mb1">
           <button class="btn btn-success" v-bind:disabled="!surveyName || !description" v-on:click="goSetup"> Next </button>
@@ -42,8 +47,6 @@ export default {
   },
   computed: {
     surveyCode: function () {
-      console.log('dashboard:')
-      console.log(this.$route.params.id);
       return this.$route.params.id;
     }
   },
@@ -78,7 +81,11 @@ export default {
   width: 15rem;
   height: 15rem;
 }
-.dashboard-col{
+.dashboard-left{
   padding: 20px;
+}
+.dashboard-right{
+  padding: 20px 50px;
+  text-align: left;
 }
 </style>
