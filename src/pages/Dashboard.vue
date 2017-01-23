@@ -10,8 +10,8 @@
       <div class="dashboard-right flex-auto">
         <div v-for="(q, index) in questions">
           <div v-show="index === activeQuestionIndex" class="question">
-            <div class="prev questionNav" v-on:click="prev">Prev</div>
-            <div class="next questionNav" v-on:click="next">Next</div>
+            <div class="prev questionNav" v-show="activeQuestionIndex" v-on:click="prev">Prev</div>
+            <div class="next questionNav" v-show="activeQuestionIndex" v-on:click="next">Next</div>
             <h4 class="question-content">{{index + 1}}. {{lang[q.code]}}</h4>
             <div class="text-small">{{activeQuestionUsers}} votes</div>
             <div class="option" v-for="(opt, idx) in q.options">

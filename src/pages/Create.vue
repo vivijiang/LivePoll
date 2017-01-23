@@ -1,13 +1,13 @@
 <template>
   <div class="login">
-    <h1>create new live survey</h1>
+    <h1>Create new live survey</h1>
     
     <div class="event-name l-mb3">
-    <h2>What's the name of your survey?</h2>
+      <label>What's the name of your survey?</label>
       <input class="form-control" v-model="surveyName" placeholder="Survey Name">
     </div>
     <div class="event-name l-mb3">
-        <h2>What's the survey about?</h2>
+      <label>What's the survey about?</label>
       <input class="form-control" v-model="description" placeholder="Description">
     </div>
 <!--     <div class="event-name l-mb3">

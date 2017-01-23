@@ -38,7 +38,7 @@ h2 {
   }
 
   .event-date, .event-name {
-    max-width: 280px;
+    max-width: 300px;
     margin-left: auto;
     margin-right: auto;
 }
