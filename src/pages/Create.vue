@@ -1,14 +1,6 @@
 <template>
   <div class="page-layout-wrapper">
-    <div class="page-layout-header shadow-b2 z2 ui-bgc-grey-header">
-      <div class="header-general">
-        <div class="header-general__nav--left">My Survey</div>
-        <div class="header-general__content">
-          <!-- <input type="text" class="form-control" placeholder="Search Survey"> -->
-        </div>
-        <div class="header-general__nav--right">UserName here</div>
-      </div>
-    </div>
+
     <h1>Create new live survey</h1>
     
     <div class="event-name l-mb3">

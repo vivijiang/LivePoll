@@ -386,6 +386,25 @@ body, .bg-gray-l2 {
     flex: 1 0 auto;
     text-align: right;
 }
+
+.flex-center, .card, .main-panel-body.main-panel-body-center {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.flex-justify {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+.em-bar {
+    padding: 0 25px;
+    height: 51px;
+    width: 100%;
+    margin: 0 auto;
+}
 @media (min-width: 544px)
 {
   .container, .page-layout-body-inner {

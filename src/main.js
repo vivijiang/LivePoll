@@ -5,6 +5,7 @@ import VueRouter from 'vue-router';
 import App from './App';
 import Login from './pages/Login';
 import Create from './pages/Create';
+import SurveyList from './pages/SurveyList';
 import Setup from './pages/Setup';
 import Dashboard from './pages/Dashboard';
 Vue.use(VueRouter);
@@ -12,6 +13,7 @@ Vue.use(VueRouter);
 const routes = [
   { path: '/', component: Login },
   { path: '/create', component: Create },
+  { path: '/surveys', component: SurveyList },
   { path: '/setup/:id', name: 'setup', component: Setup },
   { path: '/d/:id', name: 'dashboard', component: Dashboard }
 ];

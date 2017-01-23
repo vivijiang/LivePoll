@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     loginAdmin: function () {
-      this.$router.push({ path: 'create' });
+      this.$router.push({ path: 'surveys' });
     },
     loginDashboard: function () {
       // todo: verfiy the surveycode
