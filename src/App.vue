@@ -22,7 +22,7 @@ h2 {
   text-align: center;
   color: #2c3e50;
   max-width: 1800px;
-  margin: 60px auto 0;
+  margin: 0 auto;
 }
 .form-control {
     display: block;
@@ -78,6 +78,7 @@ body{
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   color: #2c3e50;
+  margin: 0;
 }
 .relative {
     position: relative;
@@ -355,7 +356,36 @@ body, .bg-gray-l2 {
     padding-top: .7rem;
     padding-bottom: .7rem;
 }
+.ui-bgc-grey-header {
+    background-color: #f6f6f6;
+}
+.shadow-b2 {
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,.3);
+}
+.header-general {
+    padding: 0 25px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 4.2rem;
+}
+.header-general__nav--left {
+    color: #9c9c9c;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 17px;
+}
 
+.header-general__content {
+    -webkit-flex: 1 0 auto;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+    text-align: right;
+}
 @media (min-width: 544px)
 {
   .container, .page-layout-body-inner {
@@ -367,6 +397,9 @@ body, .bg-gray-l2 {
   .container, .page-layout-body-inner {
     max-width: 720px;
   }
+  .header-general__content {
+    text-align: center;
+}
 }
 
 @media (min-width: 992px)
