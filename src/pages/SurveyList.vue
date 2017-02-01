@@ -14,12 +14,16 @@
   <div class="main-panel-body bg-white shadow-b1 flex-column flex">
     <div>
       <ul v-for="(s, index) in surveys">
-        <li>{{s.surveyCode}}</li>
+        <li v-on:click="goSurveyDetail(s.surveyCode, (s.meta && s.meta.surveyName) || 'unknownName')">
+          <div>{{s.surveyCode}}</div>
+          <div v-if="s.meta">{{s.meta.surveyName}}</div>
+          <div v-if="s.meta">{{s.meta.description}}</div>
+        </li>
       </ul>
     </div>
     <div class="pointer no-shrink create-component create-component--bottom-border create-component--perma-bg"> 
       <label for="placeholderLabel"> </label> 
-      <div class="create-component__placeholder stretch-x" v-on:click="draftQuestion">Create a question</div> 
+      <div class="create-component__placeholder stretch-x" v-on:click="goNewSurvey">Create a survey</div> 
     </div>
   </div>
 </div>    
@@ -34,24 +38,8 @@ export default {
   name: 'surveyList',
   data () {
     return {
-      surveys: [],
-      editing: false,
-      newQuestionText: '',
-      newOptions: [],
-      newOptionText: '',
-      newOptionVal: 1
+      surveys: []
     };
-  },
-  computed: {
-    surveyCode: function () {
-      return this.$route.params.id;
-    },
-    surveyName: function () {
-      return this.$route.params.surveyName;
-    },
-    questionCount: function () {
-      return this.questions.length;
-    }
   },
   created: function () {
     // get answers
@@ -64,52 +52,23 @@ export default {
           ...value,
           surveyCode: key
         });
+        console.log('self.surveys');
+        console.log(self.surveys);
       });
-      // self.$set(this.answers, 'b', 2)
-      console.log('self.answers:');
-      console.log(self.answers);
     });
   },
   methods: {
-    draftQuestion: function () {
-      console.log('qustion');
-      this.editing = true;
+    goSurveyDetail: function (surveyCode, surveyName) {
+      this.$router.push({
+        name: 'setup',
+        params: {
+          id: surveyCode,
+          surveyName: surveyName
+        }});
     },
-    closeModal: function () {
-      this.editing = false;
-      this.newQuestionText = '';
-      this.newOptions = [];
-      this.newOptionText = '';
-      this.newOptionVal = 1;
-    },
-    saveQuestion: function () {
-      console.log('save q');
-      const self = this;
-      const surveyRef = util.getGivenEventRef(self.surveyCode);
-      surveyRef.child('questions/' + self.questionCount).set({
-        content: self.newQuestionText,
-        multiple: false,
-        options: self.newOptions
-      })
-      .then(function () {
-        self.editing = false;
-        self.newQuestionText = '';
-        self.newOptions = [];
-        self.newOptionText = '';
-        self.newOptionVal = 1;
-      });
-    },
-    addOption: function () {
-      const content = this.newOptionText && this.newOptionText.trim();
-      if (!content) {
-        return;
-      }
-      this.newOptions.push({ content: content, val: this.newOptionVal ? this.newOptionVal : 1 });
-      this.newOptionText = '';
-      this.newOptionVal = 1;
-    },
-    removeOption: function (optionIndex) {
-      this.newOptions.splice(optionIndex, 1);
+    goNewSurvey: function () {
+      console.log('go to new survey');
+      this.$router.push({ path: 'create' });
     }
   }
 };
