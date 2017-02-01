@@ -13,8 +13,8 @@
   <div class="flex flex-center flex-justify em-bar">Surveys</div>
   <div class="main-panel-body bg-white shadow-b1 flex-column flex">
     <div>
-      <ul v-for="(q, index) in questions">
-        <li>{{q.content}}</li>
+      <ul v-for="(s, index) in surveys">
+        <li>{{s.surveyCode}}</li>
       </ul>
     </div>
     <div class="pointer no-shrink create-component create-component--bottom-border create-component--perma-bg"> 
@@ -28,12 +28,13 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import util from '../utility/eventCode';
 export default {
   name: 'surveyList',
   data () {
     return {
-      questions: [],
+      surveys: [],
       editing: false,
       newQuestionText: '',
       newOptions: [],
@@ -51,6 +52,23 @@ export default {
     questionCount: function () {
       return this.questions.length;
     }
+  },
+  created: function () {
+    // get answers
+    const self = this;
+    const rootRef = util.rootRef;
+    rootRef.once('value', (snapshot) => {
+      const rootObj = snapshot.val();
+      _.forOwn(rootObj, function (value, key) {
+        self.surveys.push({
+          ...value,
+          surveyCode: key
+        });
+      });
+      // self.$set(this.answers, 'b', 2)
+      console.log('self.answers:');
+      console.log(self.answers);
+    });
   },
   methods: {
     draftQuestion: function () {
