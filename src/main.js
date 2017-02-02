@@ -12,6 +12,7 @@ Vue.use(VueRouter);
 
 const routes = [
   { path: '/', component: Login },
+  { path: '/login', component: Login },
   { path: '/create', component: Create }, // admin
   { path: '/surveys', component: SurveyList }, // admin
   { path: '/setup/:id', name: 'setup', component: Setup }, // admin

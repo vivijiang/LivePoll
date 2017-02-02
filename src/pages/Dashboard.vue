@@ -93,9 +93,14 @@ export default {
     }
   },
   created: function () {
-    // get answers
     const self = this;
-    console.log('created: ');
+    const auth = self.$route.params.auth;
+    // todo: update with backend validation and client auth
+    // goto login page if there is no auth
+    if (!auth) {
+      this.$router.push({ path: '/' });
+      return;
+    }
     console.log(self.surveyCode);
     const ansRef = util.getGivenEventRef(self.surveyCode).child('answers');
     ansRef.on('value', (snapshot) => {

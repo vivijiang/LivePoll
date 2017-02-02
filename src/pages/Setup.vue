@@ -118,7 +118,14 @@ export default {
   },
   methods: {
     goParticipantView: function () {},
-    goPresentView: function () {},
+    goPresentView: function () {
+      this.$router.push({
+        name: 'dashboard',
+        params: {
+          id: this.surveyCode,
+          auth: 'admin mode'
+        }});
+    },
     editQuestion: function (question) {
       this.editing = true;
       this.newQuestionText = question.content;
