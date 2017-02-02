@@ -41,6 +41,11 @@ export default {
             'createdAt': new Date().toUTCString(),
             'surveyName': self.surveyName,
             'description': self.description
+          },
+          'dashboard': {
+            'activeQuestionIndex': 0,
+            'currentScreen': 'welcome',
+            'shareScreen': false
           }
         }).then(function () {
           self.$router.push({
