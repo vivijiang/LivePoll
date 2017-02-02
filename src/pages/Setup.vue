@@ -3,19 +3,16 @@
   <div class="page-layout-header shadow-b2 z2 ui-bgc-grey-header">
     <div class="event-header-switcher">
       <div class="container l-px2 relative flex flex-center">
+        <div class="event-header-switcher__back">
+          <a href v-on:click="goSurveyList">My Surveys</a>
+        </div>
         <nav class="view-switcher flex-grow">
+          <span class="active">Admin View</span>
           <span v-on:click="goParticipantView">Participant View</span>
           <span v-on:click="goPresentView">Present View</span>
         </nav>
       </div>        
-    </div>
-    <div class="header-general">
-      <div class="header-general__nav--left">My Survey</div>
-      <div class="header-general__content">
-        <!-- <input type="text" class="form-control" placeholder="Search Survey"> -->
-      </div>
-      <div class="header-general__nav--right">UserName here</div>
-    </div>
+    </div>  
   </div>
   <div class="page-layout-body-inner">
     <div class="event-header container l-px2 relative">
@@ -117,13 +114,16 @@ export default {
     }
   },
   methods: {
+    goSurveyList: function (ev) {
+      ev.preventDefault();
+      this.$router.push({ path: 'surveys' });
+    },
     goParticipantView: function () {},
     goPresentView: function () {
       this.$router.push({
-        name: 'dashboard',
+        name: 'dashboardpreview',
         params: {
-          id: this.surveyCode,
-          auth: 'admin mode'
+          id: this.surveyCode
         }});
     },
     editQuestion: function (question) {

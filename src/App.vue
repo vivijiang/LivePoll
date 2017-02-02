@@ -410,6 +410,18 @@ body, .bg-gray-l2 {
     position: relative;
     color: #fff;
 }
+.event-header-switcher__back {
+    -webkit-flex-basis: 180px;
+    -ms-flex-preferred-size: 180px;
+    flex-basis: 180px;
+}
+.event-header-switcher__back a {
+    font-size: 12px;
+    height: 27px;
+    line-height: 27px;
+    display: inline-block;
+    color: #fff;
+}
 .view-switcher span, .view-switcher a{
     color: #fff;
     font-size: 13px;
@@ -420,6 +432,12 @@ body, .bg-gray-l2 {
     width: 130px;
     margin: 0 10px;
     cursor: pointer;
+    text-align: center;
+}
+.view-switcher span.active, .view-switcher a.active{
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 3px solid #fff;
 }
 @media (min-width: 544px)
 {

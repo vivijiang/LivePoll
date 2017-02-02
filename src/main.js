@@ -16,6 +16,7 @@ const routes = [
   { path: '/create', component: Create }, // admin
   { path: '/surveys', component: SurveyList }, // admin
   { path: '/setup/:id', name: 'setup', component: Setup }, // admin
+  { path: '/setup/:id/d', name: 'dashboardpreview', component: Dashboard },
   { path: '/d/:id', name: 'dashboard', component: Dashboard }
 ];
 const router = new VueRouter({

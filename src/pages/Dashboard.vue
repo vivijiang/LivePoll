@@ -1,5 +1,19 @@
 <template>
-  <div class="login">
+  <div>
+    <div class="page-layout-header shadow-b2 z2 ui-bgc-grey-header" v-if="isPreview">
+      <div class="event-header-switcher">
+        <div class="container l-px2 relative flex flex-center">
+          <div class="event-header-switcher__back">
+            <a href v-on:click="goSurveyList">My Surveys</a>
+          </div>
+          <nav class="view-switcher flex-grow">
+            <span v-on:click="goAdminView">Admin View</span>
+            <span v-on:click="goParticipantView">Participant View</span>
+            <span class="active">Present View</span>
+          </nav>
+        </div>        
+      </div>
+    </div>  
     <div class="flex">
       <div class="dashboard-left">
         <div class="qr">mini program QR here</div>
@@ -51,13 +65,11 @@ export default {
       questions: [],
       answers: {},
       lang: translation.en,
-      activeQuestionIndex: 0
+      activeQuestionIndex: 0,
+      isPreview: false
     };
   },
   computed: {
-    surveyCode: function () {
-      return this.$route.params.id;
-    },
     activeQuestionAns: function () {
       console.log('activeQuestionAns----');
       const activeQuestion = this.questions[this.activeQuestionIndex];
@@ -97,6 +109,8 @@ export default {
   },
   created: function () {
     const self = this;
+    self.surveyCode = this.$route.params.id;
+    self.isPreview = this.$route.name === 'dashboardpreview';
     // const auth = self.$route.params.auth;
     // // todo: update with backend validation and client auth
     // // goto login page if there is no auth
@@ -132,6 +146,19 @@ export default {
     });
   },
   methods: {
+    goSurveyList: function (ev) {
+      ev.preventDefault();
+      this.$router.push({ path: 'surveys' });
+    },
+    goParticipantView: function () {},
+    goAdminView: function () {
+      this.$router.push({
+        name: 'setup',
+        params: {
+          id: this.surveyCode
+            // surveyName: self.surveyName
+        }});
+    },
     next: function () {
       const self = this;
       if (self.activeQuestionIndex === self.questions.length - 1) {
