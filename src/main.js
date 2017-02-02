@@ -12,9 +12,9 @@ Vue.use(VueRouter);
 
 const routes = [
   { path: '/', component: Login },
-  { path: '/create', component: Create },
-  { path: '/surveys', component: SurveyList },
-  { path: '/setup/:id', name: 'setup', component: Setup },
+  { path: '/create', component: Create }, // admin
+  { path: '/surveys', component: SurveyList }, // admin
+  { path: '/setup/:id', name: 'setup', component: Setup }, // admin
   { path: '/d/:id', name: 'dashboard', component: Dashboard }
 ];
 const router = new VueRouter({
