@@ -174,7 +174,11 @@ export default {
       if (!content) {
         return;
       }
-      this.newOptions.push({ content: content, val: this.newOptionVal ? this.newOptionVal : 1 });
+      this.newOptions.push({
+        content: content,
+        val: this.newOptionVal ? this.newOptionVal : 1,
+        id: Date.now() // todo: how to generate option id?
+      });
       this.newOptionText = '';
       this.newOptionVal = 1;
     },
