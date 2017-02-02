@@ -5,17 +5,18 @@
         <div class="qr">mini program QR here</div>
         <p>Scan the QR code by WeChat</p>
         <p>Survey Code: <strong>{{surveyCode}}</strong> </p>
-
+        <p>{{questions.length}}</p>
+        <p>activeQuestionIndex: {{activeQuestionIndex}}</p>
       </div>
       <div class="dashboard-right flex-auto">
         <div v-for="(q, index) in questions">
           <div v-show="index === activeQuestionIndex" class="question">
             <div class="prev questionNav" v-show="activeQuestionIndex" v-on:click="prev">Prev</div>
-            <div class="next questionNav" v-show="activeQuestionIndex" v-on:click="next">Next</div>
-            <h4 class="question-content">{{index + 1}}. {{lang[q.code]}}</h4>
+            <div class="next questionNav" v-show="activeQuestionIndex < questions.length -1" v-on:click="next">Next</div>
+            <h4 class="question-content">{{index + 1}}. {{q.content}}</h4>
             <div class="text-small">{{activeQuestionUsers}} votes</div>
             <div class="option" v-for="(opt, idx) in q.options">
-              <div>{{lang[opt]}}</div>
+              <div>{{opt.content}}</div>
               <progress-bar :percent="activeQuestionUsers && activeQuestionAns['o_' + idx] ? activeQuestionAns['o_' + idx].length/activeQuestionUsers : 0"></progress-bar>
             </div>
           </div>
@@ -36,7 +37,7 @@
 <script>
 import _ from 'lodash';
 import translation from '../language/index';
-import questions from '../data/questions';
+// import questions from '../data/questions';
 import util from '../utility/eventCode';
 import ProgressBar from '../components/ProgressBar';
 export default {
@@ -46,9 +47,8 @@ export default {
   },
   data () {
     return {
-      // surveyName: '',
-      // description: '',
-      questions: questions,
+      surveyMeta: {},
+      questions: [],
       answers: {},
       lang: translation.en,
       activeQuestionIndex: 0
@@ -59,8 +59,9 @@ export default {
       return this.$route.params.id;
     },
     activeQuestionAns: function () {
-      console.log('activeQuestionAns');
+      console.log('activeQuestionAns----');
       const activeQuestion = this.questions[this.activeQuestionIndex];
+      console.log(activeQuestion);
       if (!activeQuestion) {
         return [];
       }
@@ -79,7 +80,9 @@ export default {
     },
     activeQuestionUsers: function () {
       console.log('activeQuestionUsers');
+      console.log(this.questions);
       const activeQuestion = this.questions[this.activeQuestionIndex];
+      console.log(activeQuestion);
       if (!activeQuestion) {
         return 0;
       }
@@ -94,15 +97,32 @@ export default {
   },
   created: function () {
     const self = this;
-    const auth = self.$route.params.auth;
-    // todo: update with backend validation and client auth
-    // goto login page if there is no auth
-    if (!auth) {
-      this.$router.push({ path: '/' });
-      return;
-    }
+    // const auth = self.$route.params.auth;
+    // // todo: update with backend validation and client auth
+    // // goto login page if there is no auth
+    // if (!auth) {
+    //   this.$router.push({ path: '/' });
+    //   return;
+    // }
     console.log(self.surveyCode);
-    const ansRef = util.getGivenEventRef(self.surveyCode).child('answers');
+    const surveyRef = util.getGivenEventRef(self.surveyCode);
+    surveyRef.on('value', (snapshot) => {
+      const surveyDetails = snapshot.val();
+      self.surveyMeta = surveyDetails.meta;
+      const questionList = [];
+      _.forOwn(surveyDetails.questions, function (value, key) {
+        questionList.push({
+          ...value,
+          key
+        });
+      });
+      self.questions = questionList;
+      // self.questions = Object.assign([], questionList);
+      console.log('questions:');
+      console.log(self.questions);
+    });
+
+    const ansRef = surveyRef.child('answers');
     ansRef.on('value', (snapshot) => {
       self.answers = snapshot.val();
       self.answers = Object.assign({}, snapshot.val());
