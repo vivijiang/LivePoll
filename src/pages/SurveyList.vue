@@ -1,32 +1,32 @@
 <template>
-  <div class="page-layout-wrapper">
-      <div class="page-layout-header shadow-b2 z2 ui-bgc-grey-header">
-      <div class="header-general">
-        <div class="header-general__nav--left">My Survey</div>
-        <div class="header-general__content">
-          <!-- <input type="text" class="form-control" placeholder="Search Survey"> -->
-        </div>
-        <div class="header-general__nav--right">UserName here</div>
+<div class="page-layout-wrapper">
+  <div class="page-layout-header shadow-b2 z2 ui-bgc-grey-header">
+    <div class="header-general">
+      <div class="header-general__nav--left">My Survey</div>
+      <div class="header-general__content">
+        <!-- <input type="text" class="form-control" placeholder="Search Survey"> -->
       </div>
-    </div>
-<div class="page-layout-body-inner">
-  <div class="flex flex-center flex-justify em-bar">Surveys</div>
-  <div class="main-panel-body bg-white shadow-b1 flex-column flex">
-    <div>
-      <ul v-for="(s, index) in surveys">
-        <li v-on:click="goSurveyDetail(s.surveyCode, (s.meta && s.meta.surveyName) || 'unknownName')">
-          <div>{{s.surveyCode}}</div>
-          <div v-if="s.meta">{{s.meta.surveyName}}</div>
-          <div v-if="s.meta">{{s.meta.description}}</div>
-        </li>
-      </ul>
-    </div>
-    <div class="pointer no-shrink create-component create-component--bottom-border create-component--perma-bg"> 
-      <label for="placeholderLabel"> </label> 
-      <div class="create-component__placeholder stretch-x" v-on:click="goNewSurvey">Create a survey</div> 
+      <div class="header-general__nav--right">UserName here</div>
     </div>
   </div>
-</div>    
+  <div class="page-layout-body-inner">
+    <div class="flex flex-center flex-justify em-bar">Surveys</div>
+    <div class="main-panel-body bg-white shadow-b1 flex-column flex">
+      <div>
+        <ul v-for="(s, index) in surveys">
+          <li v-on:click="goSurveyDetail(s.surveyCode, (s.meta && s.meta.surveyName) || 'unknownName')">
+            <div>{{s.surveyCode}}</div>
+            <div v-if="s.meta">{{s.meta.surveyName}}</div>
+            <div v-if="s.meta">{{s.meta.description}}</div>
+          </li>
+        </ul>
+      </div>
+      <div class="pointer no-shrink create-component create-component--bottom-border create-component--perma-bg"> 
+        <label for="placeholderLabel"> </label> 
+        <div class="create-component__placeholder stretch-x" v-on:click="goNewSurvey">Create a survey</div> 
+      </div>
+    </div>
+  </div>    
 </div>
 
 </template>

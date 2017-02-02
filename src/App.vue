@@ -19,7 +19,6 @@ h2 {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   max-width: 1800px;
   margin: 0 auto;
@@ -404,6 +403,23 @@ body, .bg-gray-l2 {
     height: 51px;
     width: 100%;
     margin: 0 auto;
+}
+.event-header-switcher {
+    background-color: #666;
+    height: 27px;
+    position: relative;
+    color: #fff;
+}
+.view-switcher span, .view-switcher a{
+    color: #fff;
+    font-size: 13px;
+    height: 27px;
+    line-height: 27px;
+    display: inline-block;
+    position: relative;
+    width: 130px;
+    margin: 0 10px;
+    cursor: pointer;
 }
 @media (min-width: 544px)
 {
