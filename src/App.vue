@@ -350,6 +350,9 @@ body, .bg-gray-l2 {
     padding-left: 2rem;
     padding-right: 2rem;
 }
+.text-center{
+    text-align: center;
+}
 .btn-primary {
     color: #fff;
     background-color: #4285f4;

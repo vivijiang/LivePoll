@@ -1,14 +1,14 @@
 <template>
 <div class="page-layout-wrapper">
-  <div class="page-layout-header shadow-b2 z2 ui-bgc-grey-header">
+<!--   <div class="page-layout-header shadow-b2 z2 ui-bgc-grey-header">
     <div class="header-general">
       <div class="header-general__nav--left">My Survey</div>
       <div class="header-general__content">
-        <!-- <input type="text" class="form-control" placeholder="Search Survey"> -->
+        <input type="text" class="form-control" placeholder="Search Survey">
       </div>
       <div class="header-general__nav--right">UserName here</div>
     </div>
-  </div>
+  </div> -->
   <div class="page-layout-body-inner">
     <div class="flex flex-center flex-justify em-bar">Surveys</div>
     <div class="main-panel-body bg-white shadow-b1 flex-column flex">
@@ -52,14 +52,14 @@ export default {
     const rootRef = util.rootRef;
     rootRef.once('value', (snapshot) => {
       const rootObj = snapshot.val();
-      _.forOwn(rootObj, function (value, key) {
-        self.surveys.push({
-          ...value,
-          surveyCode: key
+      if (rootObj) {
+        _.forOwn(rootObj, function (value, key) {
+          self.surveys.push({
+            ...value,
+            surveyCode: key
+          });
         });
-        console.log('self.surveys');
-        console.log(self.surveys);
-      });
+      }
     });
   },
   methods: {

@@ -1,23 +1,20 @@
 <template>
   <div class="page-layout-wrapper">
-
-    <h1>Create new live survey</h1>
-    
-    <div class="event-name l-mb3">
-      <label>What's the name of your survey?</label>
-      <input class="form-control" v-model="surveyName" placeholder="Survey Name">
-    </div>
-    <div class="event-name l-mb3">
-      <label>What's the survey about?</label>
-      <input class="form-control" v-model="description" placeholder="Description">
-    </div>
-<!--     <div class="event-name l-mb3">
-        <h2>Participants can join with WeChat mini program with the event code:</h2>
-        <h3>Search 'XXX' or scan the QR code by WeChat</h3>
-      <input class="form-control" v-model="surveyCode" placeholder="Survey Code">
-    </div>  -->   
-    <div class="l-mb1">
-      <button class="btn btn-success" v-bind:disabled="!surveyName || !description" v-on:click="goSetup"> Next </button>
+    <div class="page-layout-body-inner">
+      <div class="flex flex-center flex-justify em-bar">Create Survey</div>
+      <div class="main-panel-body bg-white shadow-b1 flex-column flex py07">
+          <div class="event-name l-mb3">
+          <label>What's the name of your survey?</label>
+          <input class="form-control" v-model="surveyName" placeholder="Survey Name">
+        </div>
+        <div class="event-name l-mb3">
+          <label>What's the survey about?</label>
+          <input class="form-control" v-model="description" placeholder="Description">
+        </div> 
+        <div class="l-mb1 text-center">
+          <button class="btn btn-success" v-bind:disabled="!surveyName || !description" v-on:click="goSetup"> Next </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
