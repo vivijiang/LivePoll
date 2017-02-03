@@ -12,14 +12,19 @@
   <div class="page-layout-body-inner">
     <div class="flex flex-center flex-justify em-bar">Surveys</div>
     <div class="main-panel-body bg-white shadow-b1 flex-column flex">
-      <div>
-        <ul v-for="(s, index) in surveys">
-          <li v-on:click="goSurveyDetail(s.surveyCode, (s.meta && s.meta.surveyName) || 'unknownName')">
-            <div>{{s.surveyCode}}</div>
-            <div v-if="s.meta">{{s.meta.surveyName}}</div>
-            <div v-if="s.meta">{{s.meta.description}}</div>
-          </li>
-        </ul>
+      <div class="present-item" v-for="(s, index) in surveys">
+        <div class="present-item__icon">{{index + 1}}</div>
+        <div class="present-item__content">
+          <div class="present-item__text">
+            {{s.surveyCode}} 
+          </div>
+          <div class="present-item__votes">
+            <span v-if="s.meta">{{s.meta.surveyName}}</span><span v-if="s.meta">: {{s.meta.description}}</span>
+          </div>
+        </div>
+        <div class="present-item__actions">
+          <button class="btn btn-clear" v-on:click="goSurveyDetail(s.surveyCode, (s.meta && s.meta.surveyName) || 'unknownName')">View</button>
+        </div>
       </div>
       <div class="pointer no-shrink create-component create-component--bottom-border create-component--perma-bg"> 
         <label for="placeholderLabel"> </label> 

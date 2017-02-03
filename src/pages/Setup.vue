@@ -24,10 +24,12 @@
       </div>
     </div>
     <div class="main-panel-body bg-white shadow-b1 flex-column flex">
-      <div>
-        <ul v-for="(q, index) in questions">
-          <li>{{index + 1}} - {{q.content}}<span class="right" v-on:click="editQuestion(q, q.key)">edit</span></li>
-        </ul>
+      <div class="present-item" v-for="(q, index) in questions">
+        <div class="present-item__icon">{{index + 1}}</div>
+        <div class="present-item__content">{{q.content}}</div>
+        <div class="present-item__actions">
+          <button class="btn btn-clear" v-on:click="editQuestion(q, q.key)">edit</button>
+        </div>
       </div>
       <div class="pointer no-shrink create-component create-component--bottom-border create-component--perma-bg"> 
         <label for="placeholderLabel"> </label> 
@@ -116,7 +118,7 @@ export default {
   methods: {
     goSurveyList: function (ev) {
       ev.preventDefault();
-      this.$router.push({ path: 'surveys' });
+      this.$router.push({ name: 'surveys' });
     },
     goParticipantView: function () {},
     goPresentView: function () {

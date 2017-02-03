@@ -73,6 +73,10 @@ h2 {
      pointer-events: none;
     box-shadow: none;
 }
+.btn-clear {
+    background-color: transparent;
+    transition: background .2s ease-out;
+}
 body{
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -440,6 +444,49 @@ body, .bg-gray-l2 {
     border-bottom: 3px solid #fff;
 }
 
+.present-item {
+    height: 70px;
+    padding: 0 9px 0 20px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    border-bottom: 1px solid #e5eef8;
+    background: #fff;
+    position: relative;
+}
+.present-item__icon {
+    margin-right: 1rem;
+}
+.present-item__content {
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    width: 0;
+}
+.present-item__actions {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+.present-item__votes {
+    font-size: 13px;
+    line-height: 18px;
+    color: #222;
+}
 @media (min-width: 544px)
 {
   .container, .page-layout-body-inner, .dashboard-layout-body-inner {

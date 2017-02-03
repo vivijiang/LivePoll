@@ -120,7 +120,7 @@ export default {
   methods: {
     goSurveyList: function (ev) {
       ev.preventDefault();
-      this.$router.push({ path: 'surveys' });
+      this.$router.push({ name: 'surveys' });
     },
     goParticipantView: function () {},
     goAdminView: function () {

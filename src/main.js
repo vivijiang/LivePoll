@@ -14,7 +14,7 @@ const routes = [
   { path: '/', component: Login },
   { path: '/login', component: Login },
   { path: '/create', component: Create }, // admin
-  { path: '/surveys', component: SurveyList }, // admin
+  { path: '/surveys', name: 'surveys', component: SurveyList }, // admin
   { path: '/setup/:id', name: 'setup', component: Setup }, // admin
   { path: '/setup/:id/d', name: 'dashboardpreview', component: Dashboard },
   { path: '/d/:id', name: 'dashboard', component: Dashboard }
