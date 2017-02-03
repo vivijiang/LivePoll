@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-on:click="focusOut">
     <div class="page-layout-header shadow-b2 z2 ui-bgc-grey-header" v-if="isPreview">
       <div class="event-header-switcher">
         <div class="container l-px2 relative flex flex-center">
@@ -13,7 +13,27 @@
           </nav>
         </div>        
       </div>
-    </div>  
+    </div>
+    <div class="page-layout-header shadow-b2 z2 ui-bgc-grey-header" v-if="!isPreview">
+      <div class="header-general">
+        <div class="header-general__nav--left">
+          <div class="relative dropdown" v-bind:class="{open: isMenuOpened}">
+            <div class="dropdown-toggle">Menu</div>
+            <div class="uib-dropdown-menu dropdown-menu-left dropdown-menu">
+              <a class="dropdown-item" href="" v-on:click="pushToMobile">
+                Push to mobile screen
+                <span v-if="isShared" class="tick-green dropdown-item-icon">✓</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="header-general__content">
+          <!-- <input type="text" class="form-control" placeholder="Search Survey"> -->
+          {{surveyMeta.surveyName}}
+        </div>
+        <div class="header-general__nav--right">#{{surveyCode}}</div>
+      </div>
+    </div>    
     <div class="flex dashboard-layout-body-inner mt2">
       <div class="dashboard-left">
         <div class="qr">mini program QR here</div>
@@ -49,12 +69,15 @@ export default {
   },
   data () {
     return {
+      surveyRef: null,
       surveyMeta: {},
       questions: [],
       answers: {},
       // lang: translation.en,
       activeQuestionIndex: 0,
-      isPreview: false
+      isPreview: false,
+      isShared: false,
+      isMenuOpened: false
     };
   },
   computed: {
@@ -99,6 +122,7 @@ export default {
     //   return;
     // }
     const surveyRef = util.getGivenEventRef(self.surveyCode);
+    self.surveyRef = surveyRef;
     surveyRef.on('value', (snapshot) => {
       const surveyDetails = snapshot.val();
       self.surveyMeta = surveyDetails.meta;
@@ -118,6 +142,28 @@ export default {
     });
   },
   methods: {
+    focusOut: function (ev) {
+      if (ev.target.className === 'dropdown-toggle') {
+        this.isMenuOpened = !this.isMenuOpened;
+        return;
+      }
+      this.isMenuOpened = false;
+    },
+
+    pushToMobile: function (ev) {
+      const self = this;
+      ev.preventDefault();
+      if (!self.surveyRef) {
+        return;
+      }
+      self.isShared = !self.isShared;
+      self.surveyRef.child('dashboard').update({
+        'shareScreen': self.isShared,
+        'currentScreen': self.isShared ? 'questions' : 'welcome',
+        'activeQuestionIndex': self.activeQuestionIndex
+      });
+    },
+
     goSurveyList: function (ev) {
       ev.preventDefault();
       this.$router.push({ name: 'surveys' });
@@ -136,8 +182,11 @@ export default {
         return;
       }
       self.activeQuestionIndex++;
-      const dashboardRef = util.getGivenEventRef(self.surveyCode).child('dashboard');
-      dashboardRef.update({'activeQuestionIndex': self.activeQuestionIndex});
+      if (!self.surveyRef) {
+        return;
+      }
+
+      self.surveyRef.child('dashboard').update({'activeQuestionIndex': self.activeQuestionIndex});
     },
     prev: function () {
       const self = this;
