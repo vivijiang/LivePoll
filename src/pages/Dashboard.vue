@@ -8,7 +8,7 @@
           </div>
           <nav class="view-switcher flex-grow">
             <span v-on:click="goAdminView">Admin View</span>
-            <span v-on:click="goParticipantView">Participant View</span>
+            <!-- <span v-on:click="goParticipantView">Participant View</span> -->
             <span class="active">Present View</span>
           </nav>
         </div>        
