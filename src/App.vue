@@ -90,7 +90,7 @@ body{
 body, .bg-gray-l2 {
     background-color: #eee;
 }
-.container, .page-layout-body-inner {
+.container, .page-layout-body-inner, .dashboard-layout-body-inner {
     max-width: 1140px;
     margin: 0 auto;
 }
@@ -439,15 +439,16 @@ body, .bg-gray-l2 {
     font-weight: 700;
     border-bottom: 3px solid #fff;
 }
+
 @media (min-width: 544px)
 {
-  .container, .page-layout-body-inner {
+  .container, .page-layout-body-inner, .dashboard-layout-body-inner {
     max-width: 576px;
   }
 }
 @media (min-width: 768px)
 {
-  .container, .page-layout-body-inner {
+  .container, .page-layout-body-inner, .dashboard-layout-body-inner {
     max-width: 720px;
   }
   .header-general__content {
@@ -457,7 +458,7 @@ body, .bg-gray-l2 {
 
 @media (min-width: 992px)
 {
-  .container, .page-layout-body-inner {
+  .container, .page-layout-body-inner, .dashboard-layout-body-inner{
     max-width: 940px;
   }
 }
@@ -466,8 +467,14 @@ body, .bg-gray-l2 {
     body{
         font-size: 20px;
     }
-  .container, .page-layout-body-inner {
+  .container, .page-layout-body-inner, .dashboard-layout-body-inner {
     max-width: 1140px;
+  }
+}
+@media (min-width: 1600px)
+{
+  .dashboard-layout-body-inner{
+    max-width: 1440px;
   }
 }
 </style>

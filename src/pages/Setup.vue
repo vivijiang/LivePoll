@@ -14,13 +14,13 @@
       </div>        
     </div>  
   </div>
-  <div class="page-layout-body-inner">
+  <div class="page-layout-body-inner mt2">
     <div class="event-header container l-px2 relative">
       <div class="event-header__left hidden-sm-down">
         <div class="event-header__event truncate">{{surveyMeta.surveyName}}</div>
       </div>
       <div class="event-header__center">
-        <span>Join mini program with code {{surveyCode}}</span>
+        <span>Join mini program with code #<strong>{{surveyCode}}</strong></span>
       </div>
     </div>
     <div class="main-panel-body bg-white shadow-b1 flex-column flex">

@@ -14,44 +14,32 @@
         </div>        
       </div>
     </div>  
-    <div class="flex">
+    <div class="flex dashboard-layout-body-inner mt2">
       <div class="dashboard-left">
         <div class="qr">mini program QR here</div>
         <p>Scan the QR code by WeChat</p>
-        <p>Survey Code: <strong>{{surveyCode}}</strong> </p>
-        <p>{{questions.length}}</p>
-        <p>activeQuestionIndex: {{activeQuestionIndex}}</p>
+        <h1>#{{surveyCode}}</h1>
       </div>
-      <div class="dashboard-right flex-auto">
+      <div class="dashboard-right flex-auto mt2">
         <div v-for="(q, index) in questions">
           <div v-show="index === activeQuestionIndex" class="question">
             <div class="prev questionNav" v-show="activeQuestionIndex" v-on:click="prev">Prev</div>
             <div class="next questionNav" v-show="activeQuestionIndex < questions.length -1" v-on:click="next">Next</div>
             <h4 class="question-content">{{index + 1}}. {{q.content}}</h4>
-            <div class="text-small">{{activeQuestionUsers}} votes</div>
+            <div class="text-small votes-count">{{activeQuestionUsers}} votes</div>
             <div class="option" v-for="(opt, idx) in q.options">
               <div>{{opt.content}}</div>
-              <progress-bar :percent="activeQuestionUsers && activeQuestionAns['o_' + idx] ? activeQuestionAns['o_' + idx].length/activeQuestionUsers : 0"></progress-bar>
+              <progress-bar :percent="activeQuestionUsers && activeQuestionAns[opt.id] ? activeQuestionAns[opt.id].length/activeQuestionUsers : 0"></progress-bar>
             </div>
           </div>
         </div>
-        <!-- <div class="l-mb1">
-          <button class="btn btn-success" v-bind:disabled="!surveyName || !description" v-on:click="goSetup"> Next </button>
-        </div> -->
       </div>
     </div>
-<!--     <div class="event-name l-mb3">
-        <h2>Participants can join with WeChat mini program with the event code:</h2>
-        <h3>Search 'XXX' or scan the QR code by WeChat</h3>
-      <input class="form-control" v-model="surveyCode" placeholder="Survey Code">
-    </div>  -->   
   </div>
 </template>
 
 <script>
 import _ from 'lodash';
-import translation from '../language/index';
-// import questions from '../data/questions';
 import util from '../utility/eventCode';
 import ProgressBar from '../components/ProgressBar';
 export default {
@@ -64,20 +52,18 @@ export default {
       surveyMeta: {},
       questions: [],
       answers: {},
-      lang: translation.en,
+      // lang: translation.en,
       activeQuestionIndex: 0,
       isPreview: false
     };
   },
   computed: {
     activeQuestionAns: function () {
-      console.log('activeQuestionAns----');
       const activeQuestion = this.questions[this.activeQuestionIndex];
-      console.log(activeQuestion);
       if (!activeQuestion) {
         return [];
       }
-      const activeAnswers = this.answers['q_' + this.activeQuestionIndex];
+      const activeAnswers = this.answers[activeQuestion.key];
       if (!activeAnswers) {
         return [];
       }
@@ -87,38 +73,31 @@ export default {
           (ansByOpt[optKey] || (ansByOpt[optKey] = [])).push(userKey);
         });
       });
-      console.log(ansByOpt);
       return ansByOpt;
     },
     activeQuestionUsers: function () {
-      console.log('activeQuestionUsers');
-      console.log(this.questions);
       const activeQuestion = this.questions[this.activeQuestionIndex];
-      console.log(activeQuestion);
       if (!activeQuestion) {
         return 0;
       }
-      const activeAnswers = this.answers['q_' + this.activeQuestionIndex];
+      const activeAnswers = this.answers[activeQuestion.key];
       if (!activeAnswers) {
         return 0;
       }
-      console.log('Object.keys(activeAnswers).length');
-      console.log(Object.keys(activeAnswers).length);
       return Object.keys(activeAnswers).length;
     }
   },
   created: function () {
     const self = this;
-    self.surveyCode = this.$route.params.id;
-    self.isPreview = this.$route.name === 'dashboardpreview';
-    // const auth = self.$route.params.auth;
+    self.surveyCode = self.$route.params.id;
+    self.isPreview = self.$route.name === 'dashboardpreview';
+    // const auth = self.$route.params.name;
     // // todo: update with backend validation and client auth
     // // goto login page if there is no auth
-    // if (!auth) {
+    // if (!isPreview) {
     //   this.$router.push({ path: '/' });
     //   return;
     // }
-    console.log(self.surveyCode);
     const surveyRef = util.getGivenEventRef(self.surveyCode);
     surveyRef.on('value', (snapshot) => {
       const surveyDetails = snapshot.val();
@@ -131,18 +110,11 @@ export default {
         });
       });
       self.questions = questionList;
-      // self.questions = Object.assign([], questionList);
-      console.log('questions:');
-      console.log(self.questions);
     });
 
     const ansRef = surveyRef.child('answers');
     ansRef.on('value', (snapshot) => {
-      self.answers = snapshot.val();
       self.answers = Object.assign({}, snapshot.val());
-      // self.$set(this.answers, 'b', 2)
-      console.log('self.answers:');
-      console.log(self.answers);
     });
   },
   methods: {
@@ -156,7 +128,6 @@ export default {
         name: 'setup',
         params: {
           id: this.surveyCode
-            // surveyName: self.surveyName
         }});
     },
     next: function () {
@@ -181,7 +152,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h4{
   margin-top: 0;
@@ -197,9 +167,10 @@ h4{
 }
 .dashboard-left{
   padding: 20px;
+  text-align: center;
 }
 .dashboard-right{
-  padding: 2rem 6rem;
+  padding-left: 6rem;
   text-align: left;
 }
 .option {
@@ -229,5 +200,10 @@ h4{
 }
 .next{
   right: -6rem;
+}
+.votes-count{
+  margin-bottom: 1em;
+  font-weight: bold;
+  text-align: right;
 }
 </style>

@@ -1,7 +1,9 @@
 <template>
   <div class="progress">
-    <div class="bar" v-bind:class="{ gray: widthVal == 0 }" v-bind:style="{ width:  widthVal > 0 ? widthVal + '%' : '1%' }">
-       <span class="bar-text">{{widthVal ? widthVal + '%' : '0%'}}</span>
+  <div class="bar-container">
+      <div class="bar" v-bind:class="{ gray: widthVal == 0 }" v-bind:style="{ width:  widthVal > 0 ? widthVal + '%' : '0%' }">
+         <span class="bar-text">{{widthVal > 0 ? widthVal + '%' : ''}}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -23,7 +25,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.bar{
+.bar, .bar-container{
   background-color: #4285f4;
   height: 18px;
   border-radius: 9px;
@@ -32,10 +34,14 @@ export default {
   -webkit-transition: width 1s; /* For Safari 3.1 to 6.0 */
   transition: width 1s;
 }
+.bar-container {
+  background-color: #ddd;
+  width: 100%;
+}
 .bar-text{
   position: absolute;
-  right: -44px;
-  top: 0;
+  right: -54px;
+  top: -2px;
 }
 .gray{
   background-color: #BDBDBD;
